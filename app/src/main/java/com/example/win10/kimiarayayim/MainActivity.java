@@ -2,8 +2,10 @@ package com.example.win10.kimiarayayim;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void dialogShow(int sayı) {
+    private void dialogShow(final int sayı) {
 
         contactAnimation.cancelAnimation();
 
@@ -72,6 +74,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 contactAnimation.playAnimation();
                 dialog.dismiss();
+
+                String phone = contactList.get(sayı).getContactPhoneNumber().trim();
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
+                startActivity(intent);
+
 
             }
         });
